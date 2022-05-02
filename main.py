@@ -51,6 +51,7 @@ class MainWindow(qtw.QMainWindow):
             self._create_msg_box("PERDEU PLAYBOY", "Acabaram as suas tentativas!!", qtw.QMessageBox.Critical)
             QCoreApplication.instance().quit()
 
+    #comentario novo
 
     def _create_label(self, text):
         #Criando o label e alinhano no meio e colocando altura maxima
