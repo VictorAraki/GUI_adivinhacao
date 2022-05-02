@@ -1,6 +1,7 @@
 import sys
 import PyQt5.QtWidgets as qtw
 from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QFont
 import random
 class MainWindow(qtw.QMainWindow):
@@ -26,20 +27,30 @@ class MainWindow(qtw.QMainWindow):
         self.tentativas = 10
         self.numero_secreto = random.randrange(1,101)
 
-    def _create_msg_box(self, title, text):
+    def _create_msg_box(self, title, text, icon=None):
         msg = qtw.QMessageBox()
         msg.setWindowTitle(title)
         msg.setText(text)
+        if icon is not None:
+            msg.setIcon(icon)
 
         msg.exec_()
 
     def adivinhar(self):
-        if int(self.numero.text()) == self.numero_secreto:
-            self._create_msg_box("PARABÉNS", f"Você acertou, o número secreto é {self.numero_secreto}!!!!")
-        elif int(self.numero.text()) < self.numero_secreto:
-            self._create_msg_box("OH NÃO", "O número secreto é maior que o seu chute")
-        elif int(self.numero.text()) > self.numero_secreto:
-            self._create_msg_box("OH NÃO", "O número secreto é menor que o seu chute")
+        if self.tentativas > 0:
+            if int(self.numero.text()) == self.numero_secreto:
+                self._create_msg_box("PARABÉNS", f"Você acertou, o número secreto é {self.numero_secreto}!!!!")
+                QCoreApplication.instance().quit()
+            elif int(self.numero.text()) < self.numero_secreto:
+                self._create_msg_box("OH NÃO", "O número secreto é maior que o seu chute")
+            elif int(self.numero.text()) > self.numero_secreto:
+                self._create_msg_box("OH NÃO", "O número secreto é menor que o seu chute")
+            self.tentativas -= 1
+        
+        if self.tentativas == 0:
+            self._create_msg_box("PERDEU PLAYBOY", "Acabaram as suas tentativas!!", qtw.QMessageBox.Critical)
+            QCoreApplication.instance().quit()
+
 
     def _create_label(self, text):
         #Criando o label e alinhano no meio e colocando altura maxima
