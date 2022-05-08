@@ -78,6 +78,7 @@ class MainWindow(qtw.QMainWindow):
         line_layout.addWidget(label_explain)
 
         self.numero = qtw.QLineEdit()
+        self.numero.returnPressed.connect(self.adivinhar)
         line_layout.addWidget(self.numero)
 
         self.general_layout.addLayout(line_layout)

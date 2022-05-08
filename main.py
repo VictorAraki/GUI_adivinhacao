@@ -8,7 +8,7 @@ class FirstWindow(qtw.QMainWindow):
     def __init__(self):
         super().__init__()
         
-        self.setWindowTitle(" de adivinhação")
+        self.setWindowTitle("Jogo de adivinhação")
         self.setFixedSize(300,250)
 
         self.main_layout = qtw.QVBoxLayout()
